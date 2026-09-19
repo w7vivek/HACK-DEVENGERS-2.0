@@ -2,6 +2,10 @@
 
 https://drive.google.com/file/d/1FvIdSiX2o8qsj7GC3VHm7qcCwsHqZiCq/view?usp=sharing
 
+PPT
+
+https://docs.google.com/presentation/d/1T7K1HxdAqVSGOwTKyC-4FSY7SQlDZLuR/edit?usp=sharing&ouid=105835829372455947325&rtpof=true&sd=true
+
 "The payment that flow."
 
 A MERN stack transaction management system designed for recording payments via UPI, Cash, and Net Banking, paired with a companion desktop Python agent that syncs confirmed transactions directly into a local Excel spreadsheet.
