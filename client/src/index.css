@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #F7F1E9;
+  --color-near-black: #1A1A1A;
+  --color-brand-orange: #F97316;
+  --color-warm-gray: #6B6B6B;
+  --color-admin-bg: #0F172A;
+  --color-admin-text: #F1F5F9;
+  --color-admin-accent: #FBBF24;
+}
+
+@layer base {
+  body {
+    background-color: #F7F1E9;
+    color: #1A1A1A;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (pointer: fine) {
+    body {
+      cursor: url('/cursors/pay-cursor.svg') 4 4, auto;
+    }
+    a, button, [role="button"], input[type="submit"], input[type="button"], select, .cursor-pointer {
+      cursor: url('/cursors/pay-cursor-pointer.svg') 4 4, pointer !important;
+    }
+  }
+
+  @media (pointer: coarse) {
+    body, a, button, [role="button"] {
+      cursor: auto;
+    }
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+[data-role="admin"] .glass-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(249, 115, 22, 0.3) 0%, #F97316 50%, rgba(249, 115, 22, 0.3) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 2.2s infinite linear;
+}
+
+.font-serif-editorial {
+  font-family: 'Playfair Display', 'Instrument Serif', Georgia, serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+/* Autofill text & background styling so text is always high-contrast and clear */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #1A1A1A !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.95) inset !important;
+  border-radius: 12px;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.liquid-glass-blob {
+  background: radial-gradient(130% 120% at 20% 20%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.65) 45%, rgba(255, 248, 240, 0.45) 100%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    inset 0 4px 20px rgba(255, 255, 255, 0.95),
+    inset 0 -8px 25px rgba(225, 170, 130, 0.22),
+    0 25px 65px -15px rgba(180, 130, 90, 0.18),
+    0 10px 25px -5px rgba(0, 0, 0, 0.04);
+}
+
+.liquid-orange-btn {
+  background: radial-gradient(100% 120% at 50% 15%, #FFA066 0%, #F97316 40%, #EA580C 85%, #C2410C 100%);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.65),
+    inset 0 -3px 6px rgba(154, 46, 0, 0.4),
+    0 12px 30px -4px rgba(249, 115, 22, 0.45);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-orange-btn:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 
+    inset 0 3px 6px rgba(255, 255, 255, 0.8),
+    inset 0 -3px 8px rgba(154, 46, 0, 0.45),
+    0 16px 36px -4px rgba(249, 115, 22, 0.55);
+}
+

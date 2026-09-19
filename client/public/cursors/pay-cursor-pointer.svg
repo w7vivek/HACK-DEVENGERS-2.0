@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- Interactive pointer hand with click ripple -->
+  <path d="M7 4C7 2.89543 7.89543 2 9 2C10.1046 2 11 2.89543 11 4V11.5L12.5 10C13.3 9.2 14.5 9.2 15.3 10C16.1 10.8 16.1 12 15.3 12.8L13 15.1V18C13 21.3137 10.3137 24 7 24C3.68629 24 1 21.3137 1 18V9C1 7.89543 1.89543 7 3 7C4.10457 7 5 7.89543 5 9V4C5 2.89543 5.89543 2 7 2" fill="#1A1A1A" stroke="#FFFFFF" stroke-width="1.2"/>
+  
+  <!-- Glowing orange click coin badge #F97316 -->
+  <g transform="translate(15, 8)">
+    <circle cx="8" cy="8" r="7.5" fill="#F97316" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="8" cy="8" r="5" stroke="#FFE7D6" stroke-width="0.8"/>
+    <path d="M6 6H10M6 8H9M7 6V11" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+</svg>
