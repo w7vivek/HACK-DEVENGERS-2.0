@@ -450,7 +450,7 @@ export const Auth = ({ initialMode = 'login' }) => {
                         required
                         value={loginEmail}
                         onChange={(e) => setLoginEmail(e.target.value)}
-                        placeholder="vivekwadhwani1@gmail.com"
+                        placeholder="example@gmail.com"
                         className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#1A1A1A] placeholder:text-neutral-400 focus:outline-none"
                       />
                     </div>
@@ -506,7 +506,7 @@ export const Auth = ({ initialMode = 'login' }) => {
                         required
                         value={signupName}
                         onChange={(e) => setSignupName(e.target.value)}
-                        placeholder="Vivek Sharma"
+                        placeholder="Name"
                         className="w-full bg-transparent text-xs font-semibold text-[#1A1A1A] placeholder:text-neutral-400 focus:outline-none"
                       />
                     </div>
@@ -523,7 +523,7 @@ export const Auth = ({ initialMode = 'login' }) => {
                         required
                         value={signupEmail}
                         onChange={(e) => setSignupEmail(e.target.value)}
-                        placeholder="vivekwadhwani1@gmail.com"
+                        placeholder="example@gmail.com"
                         className="w-full bg-transparent text-xs font-semibold text-[#1A1A1A] placeholder:text-neutral-400 focus:outline-none"
                       />
                     </div>

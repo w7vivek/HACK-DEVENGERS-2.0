@@ -26,12 +26,12 @@ export const ConfirmDialog = ({
           <ShieldCheck className="w-6 h-6" />
         </div>
 
-        <h3 className="text-xl font-bold text-[#1A1A1A] data-[role=admin]:text-white mb-2">
+        <h3 className="text-xl font-bold text-[#FAF9F6] data-[role=admin]:text-white mb-2">
           Verify Payment Flow
         </h3>
 
         <div className="w-full my-4 p-4 rounded-2xl ultra-glass-card-nested text-neutral-800 text-sm font-medium leading-relaxed data-[role=admin]:text-slate-100">
-          <p className="font-semibold text-base text-[#1A1A1A] data-[role=admin]:text-white">
+          <p className="font-semibold text-base text-[#FAF9F6] data-[role=admin]:text-white">
             {summaryLine}
           </p>
 

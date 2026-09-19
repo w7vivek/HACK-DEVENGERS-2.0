@@ -6,10 +6,13 @@ import threading
 import subprocess
 from datetime import datetime
 from pathlib import Path
+import requests
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from PIL import Image, ImageDraw
 
 TOKEN_PATH = Path.home() / '.nami_token.json'
 EXCEL_FILENAME = 'NAMI_Transactions.xlsx'
-# EXCEL_FILENAME = 'test.xlsx'
 API_BASE = os.environ.get('NAMI_API_URL', 'http://localhost:5001/api')
 POLL_INTERVAL_SECONDS = 15 * 60
 
@@ -17,7 +20,8 @@ def load_stored_token():
     if TOKEN_PATH.exists():
         try:
             with open(TOKEN_PATH, 'r', encoding='utf-8') as f:
-                return json.load(f).get('token')
+                data = json.load(f)
+                return data.get('token')
         except Exception:
             return None
     return None
@@ -38,7 +42,7 @@ def remove_stored_token():
 
 def prompt_login_dialog():
     import tkinter as tk
-    import requests
+    from tkinter import messagebox
 
     result = {'token': None}
     root = tk.Tk()
@@ -78,7 +82,7 @@ def prompt_login_dialog():
             res = requests.post(
                 f"{API_BASE}/auth/login",
                 json={'email': email, 'password': pw},
-                timeout=5
+                timeout=10
             )
             if res.status_code == 200:
                 data = res.json()
@@ -109,9 +113,6 @@ def prompt_login_dialog():
     return result['token']
 
 def ensure_excel_workbook(file_path):
-    from openpyxl import Workbook
-    from openpyxl.styles import Font, PatternFill, Alignment
-
     parent = os.path.dirname(file_path)
     if parent:
         os.makedirs(parent, exist_ok=True)
@@ -121,9 +122,15 @@ def ensure_excel_workbook(file_path):
         ws.title = "Transactions"
         
         headers = [
-            "Transaction ID", "Timestamp", "Sender", "Receiver",
-            "Amount (INR)", "Payment Mode", "Account Holder",
-            "Account Number", "IFSC Code"
+            "Transaction ID",
+            "Timestamp",
+            "Sender",
+            "Receiver",
+            "Amount (INR)",
+            "Payment Mode",
+            "Account Holder",
+            "Account Number",
+            "IFSC Code"
         ]
         ws.append(headers)
 
@@ -137,18 +144,10 @@ def ensure_excel_workbook(file_path):
             cell.fill = header_fill
             cell.alignment = alignment
 
-        # Pre-set default sensible column widths once
-        default_widths = [24, 20, 18, 18, 15, 14, 18, 18, 14]
-        for col_idx, width in enumerate(default_widths, 1):
-            ws.column_dimensions[chr(64 + col_idx)].width = width
-
         wb.save(file_path)
     return file_path
 
 def append_transactions_to_excel(file_path, tx_list):
-    from openpyxl import load_workbook
-    from openpyxl.styles import Font, Alignment, Border, Side
-
     ensure_excel_workbook(file_path)
     wb = load_workbook(file_path)
     ws = wb["Transactions"] if "Transactions" in wb.sheetnames else wb.active
@@ -198,6 +197,15 @@ def append_transactions_to_excel(file_path, tx_list):
             else:
                 cell.alignment = left_alignment
 
+    for col in ws.columns:
+        max_len = 0
+        col_letter = col[0].column_letter
+        for cell in col:
+            val = str(cell.value or '')
+            if len(val) > max_len:
+                max_len = len(val)
+        ws.column_dimensions[col_letter].width = max(max_len + 3, 12)
+
     wb.save(file_path)
 
 def open_file(file_path):
@@ -212,7 +220,6 @@ def open_file(file_path):
         print(f"Could not open spreadsheet: {e}")
 
 def create_tray_icon():
-    from PIL import Image, ImageDraw
     width, height = 64, 64
     image = Image.new('RGBA', (width, height), (0, 0, 0, 0))
     draw = ImageDraw.Draw(image)
@@ -237,12 +244,11 @@ class NamiSyncAgent:
     def fetch_unsynced(self):
         if not self.token:
             return []
-        import requests
         try:
             res = requests.get(
                 f"{API_BASE}/transactions/unsynced",
                 headers=self.get_headers(),
-                timeout=5
+                timeout=10
             )
             if res.status_code == 401:
                 remove_stored_token()
@@ -257,13 +263,12 @@ class NamiSyncAgent:
     def mark_synced(self, tx_ids):
         if not self.token or not tx_ids:
             return False
-        import requests
         try:
             res = requests.post(
                 f"{API_BASE}/transactions/mark-synced",
                 headers=self.get_headers(),
                 json={'ids': tx_ids},
-                timeout=5
+                timeout=10
             )
             return res.status_code == 200
         except Exception:
