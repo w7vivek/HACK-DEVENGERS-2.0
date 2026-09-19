@@ -1,5 +1,7 @@
 # NAMI
 
+https://drive.google.com/file/d/1FvIdSiX2o8qsj7GC3VHm7qcCwsHqZiCq/view?usp=sharing
+
 "The payment that flow."
 
 A MERN stack transaction management system designed for recording payments via UPI, Cash, and Net Banking, paired with a companion desktop Python agent that syncs confirmed transactions directly into a local Excel spreadsheet.
